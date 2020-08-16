@@ -1,0 +1,36 @@
+<div class="container-fluid">
+    <div class="row" cdkDropListGroup>
+        <div class="col-2 m-4 p-4 column" *ngFor="let column of board; let e = index">
+            <div class="column-title text-center" *ngIf="!editTitle">
+                {{column.status}}               
+            </div>
+            <form class="mt-4" *ngIf="editTitle" (ngSubmit)="onSubmit(f)" #f="ngForm">
+                <input type="text" name="editTitle" ngModel={{column.status}} required>
+                <button class="btn btn-primary mt-2">Enregistrer</button>
+            </form>
+            <hr>
+            <div class="row task-container"  
+            cdkDropList
+            [cdkDropListData]="column.tasks"
+            (cdkDropListDropped)="drop($event)">
+                <div class="col-12 task" *ngFor="let item of column.tasks; let i = index" cdkDrag>
+                    <app-task-card [taskName]="item" [indexOfTask]="i" [indexOfCol]="e"></app-task-card>
+                </div>
+                <div class="col-12">
+                    <app-add-task [indexOfCol]="e"></app-add-task>
+                </div>
+            </div>
+        </div>
+        <div class="col-2 m-4 p-4 column-add">
+            <div class="column-add-title text-center">
+                Ajouter une colonne              
+            </div>
+            <hr>
+            <div class="row task-container">
+                <div class="col-12">
+                    <app-add-col></app-add-col>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

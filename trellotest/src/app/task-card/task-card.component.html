@@ -1,0 +1,11 @@
+<div class="task-header">
+    <button class="btn btn-success" (click)="onEditForm()">modifier</button>
+    <button class="btn btn-danger" (click)="onDelete()">X</button>
+</div>
+<div class="task-content mt-4" *ngIf="!editForm">
+    {{taskName.task}}
+</div>
+<form class="mt-4" *ngIf="editForm" (ngSubmit)="onSubmit(f)" #f="ngForm">
+    <input type="text" name="editTask" ngModel={{taskName.task}} required>
+    <button class="btn btn-primary mt-2">Enregistrer</button>
+</form>
